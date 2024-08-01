@@ -1,3 +1,16 @@
+# shoppingList-React
+Shopping list
+
+
+Before running please make sure to do:
+npm install
+
+To start running use: 
+npm start
+
+I use Mobx store for sherring data between components
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
