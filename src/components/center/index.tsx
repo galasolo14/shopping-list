@@ -31,10 +31,19 @@ const Center = ({store}: any) => {
       }, []);
 
     const getCategories = async () => {
-    let result = await fetch('http://localhost:5000/categories');
-    let data = await result.json();
-    setCatagories(data);
-    store.addCategories(data)
+        // let result = await fetch('http://localhost:5000/categories');
+        //     let data = await result.json();
+        //     setCatagories(data);
+        //     store.addCategories(data)
+        try{
+            let result = await fetch('http://localhost:5000/categories');
+            let data = await result.json();
+            setCatagories(data);
+            store.addCategories(data)
+        }catch(error){
+            throw(error)
+        }
+    
     }
 
     const  onAdd = () => {

@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import { Button } from '@mui/material';
 import { observer } from "mobx-react";
 import Divider from '@mui/material/Divider';
+import { error } from "console";
 
 
 const List = observer(({store}: any) => {
@@ -35,9 +36,22 @@ const List = observer(({store}: any) => {
     }
 
     const finishOrder = async () => {
-        let result = await fetch('http://localhost:5000/save');
-        let data = await result.json();
-        store.onAdd([])
+        try{
+            let result = await fetch('http://localhost:5000/save', {
+                method: 'POST',
+                body: JSON.stringify(itemsNew),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(result){
+                let data = await result.json();
+                store.onAdd([])
+            }
+        }catch (error){
+            throw(error)
+        }
+            
     }
 
     return <div>
