@@ -3,20 +3,20 @@ import { Typography } from '@mui/material';
 import { Button } from '@mui/material';
 import { observer } from "mobx-react";
 import Divider from '@mui/material/Divider';
-import { error } from "console";
 
 
 const List = observer(({store}: any) => {
 
-    let categoriezed = [...store.categories]
+    // let categoriezed = [...store.categories]
     let itemsNew = [...store.items]
 
-    let clening = []  // id 1
-    let veggies = []  // id 2
-    let dairy = []  // id 3
-    let meatFish = [] //id 4
-    let bakery = [] //id 5
+    let clening: any = []  // id 1
+    let veggies: any = []  // id 2
+    let dairy: any = []  // id 3
+    let meatFish: any = [] //id 4
+    let bakery: any = [] //id 5
 
+    
     for(const element of itemsNew){
         if(element.category === 1){
             clening.push(element)
@@ -37,15 +37,18 @@ const List = observer(({store}: any) => {
 
     const finishOrder = async () => {
         try{
-            let result = await fetch('http://localhost:5000/save', {
+            let result = await fetch('http://localhost:5000/api/save', {
                 method: 'POST',
                 body: JSON.stringify(itemsNew),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            if(result){
+            if(result.status === 200){
                 let data = await result.json();
+                if(data){
+                    alert(data)
+                }
                 store.onAdd([])
             }
         }catch (error){
@@ -71,7 +74,7 @@ const List = observer(({store}: any) => {
                 <div>
                <Typography align="center" variant="h5" color="#5F9EA0" >ירקות ופירות {veggies.length}</Typography>
                <Divider />
-               {veggies.length > 0 && veggies.map((item) => (
+               {veggies.length > 0 && veggies.map((item: any) => (
                 <Typography align="center" variant="h6" color="#5F9EA0" >{item.quantity} {item.product}</Typography>
                ))}
                </div>
@@ -80,7 +83,7 @@ const List = observer(({store}: any) => {
                 <div>
                <Typography align="center" variant="h5" color="#5F9EA0" >גבינות {dairy.length}</Typography>
                <Divider />
-               {dairy.length > 0 && dairy.map((item) => (
+               {dairy.length > 0 && dairy.map((item: any) => (
                 <Typography align="center" variant="h6" color="#5F9EA0" >{item.quantity} {item.product}</Typography>
                ))}
                </div>
@@ -89,7 +92,7 @@ const List = observer(({store}: any) => {
                 <div>
                <Typography align="center" variant="h5" color="#5F9EA0" >בשר ודגים {meatFish.length}</Typography>
                <Divider />
-               {meatFish.length > 0 && meatFish.map((item) => (
+               {meatFish.length > 0 && meatFish.map((item: any) => (
                 <Typography align="center" variant="h6" color="#5F9EA0" >{item.quantity} {item.product}</Typography>
                ))}
                </div>

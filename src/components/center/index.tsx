@@ -31,12 +31,9 @@ const Center = ({store}: any) => {
       }, []);
 
     const getCategories = async () => {
-        // let result = await fetch('http://localhost:5000/categories');
-        //     let data = await result.json();
-        //     setCatagories(data);
-        //     store.addCategories(data)
         try{
-            let result = await fetch('http://localhost:5000/categories');
+            let result = await fetch('http://localhost:5000/api/categories');
+            console.log(result)
             let data = await result.json();
             setCatagories(data);
             store.addCategories(data)
@@ -47,9 +44,9 @@ const Center = ({store}: any) => {
     }
 
     const  onAdd = () => {
-        if(category){
-            const checkItem = list.findIndex(({product}) => product === value)
-            let newList = [...list]
+        let newList = [...store.items]
+        if(category && value.length){
+            const checkItem = newList.findIndex(({product}) => product === value)
             if(checkItem === -1){
                 let addToList: Product = {
                     category: category,
@@ -64,7 +61,7 @@ const Center = ({store}: any) => {
             setValue('')
             store.onAdd(newList);
         }else{
-            alert('Must select categoty!')
+            alert('עליך לבחור קטגוריה ומוצר לפני הוספה לרשימה')
         }
         
 
