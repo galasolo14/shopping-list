@@ -36,24 +36,29 @@ const List = observer(({store}: any) => {
     }
 
     const finishOrder = async () => {
-        try{
-            let result = await fetch('http://localhost:5000/api/save', {
-                method: 'POST',
-                body: JSON.stringify(itemsNew),
-                headers: {
-                    'Content-Type': 'application/json'
+        if(itemsNew.length > 0){
+            try{
+                let result = await fetch('http://localhost:5000/api/save', {
+                    method: 'POST',
+                    body: JSON.stringify(itemsNew),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if(result.status === 200){
+                    let data = await result.json();
+                    if(data){
+                        alert(data)
+                    }
+                    store.onAdd([])
                 }
-            });
-            if(result.status === 200){
-                let data = await result.json();
-                if(data){
-                    alert(data)
-                }
-                store.onAdd([])
+            }catch (error){
+                throw(error)
             }
-        }catch (error){
-            throw(error)
+        }else{
+            alert('עליך להוסיף פריטים לפני סיום הזמנה')
         }
+        
             
     }
 

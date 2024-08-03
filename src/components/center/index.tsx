@@ -33,7 +33,6 @@ const Center = ({store}: any) => {
     const getCategories = async () => {
         try{
             let result = await fetch('http://localhost:5000/api/categories');
-            console.log(result)
             let data = await result.json();
             setCatagories(data);
             store.addCategories(data)
